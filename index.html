@@ -8,11 +8,20 @@
 </head>
 
 <body>
+
+
     <div id="display"></div>
     <button onclick="firstStudent()">first</button>
     <button onclick="nextStudent()">next</button>
     <button onclick="prevStudent()">Prev</button>
-    <button onclick="lastStudent()">last</button>
+    <button onclick="lastStudent()">last</button><br>
+    <hr>
+    <button onclick="addStudent()">add</button>
+    <button onclick="killStudent()">delete</button>
+    <button onclick="updStudent()">upd</button><br>
+
+    <input type="text" id="studentName" placeholder="Enter student name">
+    <input type="number" id="studentAge" placeholder="Enter student age">
     <script>
         let index = 0
         let students = [
@@ -21,7 +30,32 @@
             { "name": "rony", "age": 7 },
 
         ]
-        function updateDisplay(){
+
+        function addStudent() {
+            // Get values from input fields
+            let name = document.getElementById('studentName').value;
+            let age = parseInt(document.getElementById('studentAge').value);
+
+            // Validate if name and age are present
+            if (name && !isNaN(age)) {
+                // Add new student to the students array
+                students.push({
+                    name: name,
+                    age: age
+                });
+
+                // Clear input fields
+                document.getElementById('studentName').value = '';
+                document.getElementById('studentAge').value = '';
+
+                // Optionally update the display to show the newly added student
+                index = students.length - 1;
+                updateDisplay();
+            } else {
+                console.log("Please enter a valid name and age.");
+            }
+        }
+        function updateDisplay() {
             display.innerHTML = students[index % students.length].name
             display.innerHTML += students[index % students.length].age
         }
@@ -30,19 +64,23 @@
             index++
             updateDisplay()
         }
+
         function prevStudent() {
-            if (index > 0)
-                index--
+            index = index > 0 ? --index : 0
             updateDisplay()
         }
-        function firstStudent(){
-            index=0
+
+        function firstStudent() {
+            index = 0
             updateDisplay()
         }
-        function lastStudent(){
-            index=students.length-1
+
+        function lastStudent() {
+            index = students.length - 1
             updateDisplay()
         }
+
+        //display frist student when program start
         updateDisplay()
 
     </script>
