@@ -31,6 +31,25 @@
 
         ]
 
+        function killStudent() {
+            if (students.length === 0) {
+                console.log("No students to delete");
+                return;
+            }
+
+            // Remove the student at the current index
+            students.splice(index, 1);
+
+            // Adjust index if we've just deleted the last student
+            if (index >= students.length) {
+                index = students.length - 1;
+            }
+
+            // Update the display
+            updateDisplay();
+        }
+
+
         function addStudent() {
             // Get values from input fields
             let name = document.getElementById('studentName').value;
@@ -56,9 +75,14 @@
             }
         }
         function updateDisplay() {
-            display.innerHTML = students[index % students.length].name
-            display.innerHTML += students[index % students.length].age
+            if (students.length === 0) {
+                display.innerHTML = "No students available";
+                return;
+            }
+
+            display.innerHTML = students[index % students.length].name + " " + students[index % students.length].age;
         }
+
 
         function nextStudent() {
             index++
