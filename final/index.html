@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div id="display"></div>
+    <button onclick="first()">First</button>
+    <button onclick="next()">next</button>
+    <button onclick="prev()">prev</button>
+    <button onclick="last()">last</button>
+
+    <script>
+        const MY_SEREVR = "http://localhost:3000/students"
+        let students = []
+        let index = 0
+        function updateDisplay() {
+            display.innerHTML = students[index].sname
+            display.innerHTML += students[index].age
+        }
+
+        function first() {
+            index = 0
+            updateDisplay()
+        }
+        function next() {
+            index= ++index < students.length?index ++:0;
+            updateDisplay()
+        }
+
+        function prev() {
+            index--
+            updateDisplay()
+        }
+
+        function last() {
+            index = students.length - 1
+            updateDisplay()
+        }
+        
+        async function getData() {
+            students = await fetch(MY_SEREVR).then(r => r.json())
+            updateDisplay()
+        }
+        getData()
+    </script>
+</body>
+
+</html>

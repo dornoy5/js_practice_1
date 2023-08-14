@@ -24,13 +24,13 @@
     <input type="number" id="studentAge" placeholder="Enter student age">
     <script>
         let index = 0
-        let students = [
-            { "name": "yacov", "age": 20 },
-            { "name": "ana", "age": 15 },
-            { "name": "rony", "age": 7 },
-
-        ]
-
+        let students = []
+        
+        async function getData() {
+            let server = "http://localhost:3000/students" //local
+            students = await fetch(server).then(response => response.json())
+            updateDisplay()
+        }
         function killStudent() {
             if (students.length === 0) {
                 console.log("No students to delete");
@@ -105,8 +105,8 @@
         }
 
         //display frist student when program start
-        updateDisplay()
-
+        
+        getData()
     </script>
 </body>
 
