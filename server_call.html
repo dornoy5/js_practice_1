@@ -9,14 +9,18 @@
 
 <body>
     <button onclick="getData()">Get data</button>
+    <div id="display"></div>
     <script>
 
-        function getData() {
+        async function getData() {
             let server = "http://localhost:3000/students" //local
             // let server = "https://jsonplaceholder.typicode.com/todos" //remote
-            fetch(server)
-                .then(response => response.json())
-                .then(json => console.log(json))
+            let res = await fetch(server).then(response => response.json())
+            console.log(res);
+            for (let index = 0; index < res.length; index++) {
+                display.innerHTML += res[index].name + "</br>";
+            }
+            // display.innerHTML = res[0].title
         }
     </script>
 </body>
