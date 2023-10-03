@@ -23,3 +23,10 @@
         }
     ]
 }
+
+# load to git
+git add
+
+git commit -m "שם התיקיה" 
+
+git push
